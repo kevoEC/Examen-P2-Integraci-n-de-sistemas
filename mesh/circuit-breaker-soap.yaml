@@ -1,0 +1,15 @@
+type: CircuitBreaker
+name: cb-to-soap
+mesh: default
+sources:
+  - match:
+      kuma.io/service: solicitud-service
+destinations:
+  - match:
+      kuma.io/service: soap-mock
+conf:
+  http:
+    consecutiveErrors: 3
+    interval: 60s
+    baseEjectionTime: 30s
+    maxEjectionPercent: 100
